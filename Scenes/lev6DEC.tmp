@@ -1,0 +1,186 @@
+[gd_scene load_steps=15 format=3 uid="uid://qewl2vrl0h3a"]
+
+[ext_resource type="Script" path="res://Scripts/level_1.gd" id="1_iwqo0"]
+[ext_resource type="PackedScene" uid="uid://cs2lcoubb1e42" path="res://Scenes/block.tscn" id="2_kja0j"]
+[ext_resource type="Environment" uid="uid://cak1yv8g8q8ay" path="res://Resources/level_1_environment.tres" id="5_28edm"]
+[ext_resource type="MeshLibrary" uid="uid://bb6id0l51jge3" path="res://Resources/world-blocks-v1.tres" id="6_qkvqx"]
+[ext_resource type="PackedScene" uid="uid://cx6nabfsshby8" path="res://Scenes/coin.tscn" id="7_xa8bc"]
+[ext_resource type="PackedScene" uid="uid://dwwexq3xfcbdq" path="res://Scenes/hud.tscn" id="8_6iflv"]
+[ext_resource type="PackedScene" uid="uid://cl5rwr4s5wl8q" path="res://Scenes/enemy.tscn" id="9_ifx3e"]
+[ext_resource type="PackedScene" uid="uid://vml1308ivl8d" path="res://Scenes/platform_3x_2.tscn" id="10_5jj1f"]
+[ext_resource type="Script" path="res://Scripts/grid_container.gd" id="11_t635s"]
+[ext_resource type="Script" path="res://Scripts/sub_viewport_container.gd" id="12_w0r8q"]
+[ext_resource type="PackedScene" uid="uid://brqr2knmvokyt" path="res://Scenes/standard-bot.tscn" id="13_qo32u"]
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="13_xwsha"]
+[ext_resource type="PackedScene" uid="uid://bg50jlg4mbfec" path="res://Scenes/fire-bot.tscn" id="14_4b5tb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pp7ie"]
+size = Vector3(100, 11, 117)
+
+[node name="Level1" type="Node3D"]
+script = ExtResource("1_iwqo0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.976672, -0.198533, 0.0818293, 0, 0.38107, 0.924546, -0.214735, -0.902979, 0.372181, 0, 7.72163, 4.46104)
+shadow_enabled = true
+
+[node name="Blocks" type="Node3D" parent="."]
+
+[node name="Block1" parent="Blocks" instance=ExtResource("2_kja0j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.88792, 2.5269, 1.44464)
+
+[node name="Block2" parent="Blocks" instance=ExtResource("2_kja0j")]
+transform = Transform3D(0.871821, 0.489824, 0, -0.430445, 0.766135, 0.477235, 0.233761, -0.416064, 0.878775, 1.95318, 2.5269, -1.96959)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("5_28edm")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("6_qkvqx")
+collision_layer = 2
+collision_mask = 13
+data = {
+"cells": PackedInt32Array(-65534, 0, 0, -65536, 65534, 0, -1, 65532, 0, -65533, 65534, 0, -65536, 65535, 0, -65536, 65533, 0, -1, 65533, 0, -1, 65534, 0, -1, 65535, 0, -1, 0, 0, -65533, 0, 0, -65533, 65535, 0, -65534, 65535, 0, -65536, 65532, 0, -65535, 65532, 0, -65535, 65533, 0, -65533, 65532, 0, -65533, 65533, 0, -65536, 0, 0, -65535, 0, 0, -65535, 65535, 0, -65535, 65534, 0, -65534, 65534, 0, -65534, 65533, 0, -65534, 65532, 0, -2, 65531, 6, -2, 65532, 5, -2, 65533, 5, -2, 65534, 5, -2, 65535, 5, -2, 0, 5, -2, 1, 1048582, -65532, 1, 655366, -65532, 65531, 1441798, -1, 1, 1048581, -65536, 1, 1048581, -65535, 1, 1048581, -65534, 1, 1048581, -65533, 1, 1048581, -65532, 65532, 655365, -65532, 65533, 655365, -65532, 65534, 655365, -65532, 65535, 655365, -65532, 0, 655365, -1, 65531, 1441797, -65536, 65531, 1441792, -65535, 65531, 1441792, -65534, 65531, 1441792, -65533, 65531, 1441797, -65536, 65530, 1179649, -65535, 65530, 1179649, -65534, 65530, 1179649, 2, 65530, 1441794, 1, 65530, 1441794, 0, 65530, 1441794, -65534, 65529, 1179650, -65535, 65529, 1179650, -65536, 65529, 1179650, 2, 65529, 1441793, 1, 65529, 1441793, 0, 65529, 1441793, 2, 65528, 1441792, 1, 65528, 1441792, 0, 65528, 1441792, 3, 65528, 1048581, 4, 65528, 1048581, 5, 65528, 1048581, 6, 65528, 655366, 65535, 65528, 1048581, 65534, 65528, 1048581, 65533, 65528, 1048581, 65532, 65528, 1048582, 6, 65527, 655365, 6, 65526, 655365, 6, 65525, 655365, 6, 65524, 655365, 6, 65523, 655365, 6, 65522, 655365, 6, 65521, 655365, 6, 65520, 655365, 5, 65520, 0, 6, 65519, 655365, 6, 65518, 1441798, 65533, 65518, 1441797, 65533, 65519, 0, 65533, 65520, 0, 65533, 65521, 0, 65533, 65522, 0, 65533, 65523, 0, 65533, 65524, 0, 65533, 65525, 0, 65533, 65526, 0, 65533, 65527, 0, 65534, 65519, 0, 65534, 65520, 0, 65534, 65521, 0, 65534, 65522, 0, 65534, 65523, 0, 65534, 65524, 0, 65534, 65525, 0, 65534, 65526, 0, 65534, 65527, 0, 65535, 65519, 0, 65535, 65520, 0, 65535, 65521, 0, 65535, 65522, 0, 65535, 65523, 0, 65535, 65524, 0, 65535, 65525, 0, 65535, 65526, 0, 65535, 65527, 0, 0, 65519, 0, 0, 65520, 0, 0, 65521, 0, 0, 65522, 0, 0, 65523, 0, 0, 65524, 0, 0, 65525, 0, 0, 65526, 0, 0, 65527, 0, 1, 65519, 0, 1, 65520, 0, 1, 65521, 0, 1, 65522, 0, 1, 65523, 0, 1, 65524, 0, 1, 65525, 0, 1, 65526, 0, 1, 65527, 0, 2, 65519, 0, 2, 65520, 0, 2, 65521, 0, 2, 65522, 0, 2, 65523, 0, 2, 65524, 0, 2, 65525, 0, 2, 65526, 0, 2, 65527, 0, 3, 65519, 0, 3, 65520, 0, 3, 65521, 0, 3, 65522, 0, 3, 65523, 0, 3, 65524, 0, 3, 65525, 0, 3, 65526, 0, 3, 65527, 0, 4, 65519, 0, 4, 65520, 0, 4, 65521, 0, 4, 65522, 0, 4, 65523, 0, 4, 65524, 0, 4, 65525, 0, 4, 65526, 0, 4, 65527, 0, 5, 65519, 0, 5, 65521, 0, 5, 65522, 0, 5, 65523, 0, 5, 65524, 0, 5, 65525, 0, 5, 65526, 0, 5, 65527, 0, 65532, 65527, 5, 65532, 65526, 5, 65532, 65525, 5, 65532, 65524, 5, 65532, 65523, 5, 65532, 65522, 5, 65532, 65521, 5, 65532, 65520, 5, 65532, 65519, 5, 5, 65518, 1441797, 4, 65518, 1441797, 3, 65518, 1441797, 2, 65518, 1441797, 1, 65518, 1441797, 0, 65518, 1441797, 65535, 65518, 1441797, 65534, 65518, 1441797, 65532, 65518, 6, 131083, 65524, 3, 131083, 65525, 3, 65544, 65524, 3, 65544, 65525, 3, 131084, 65524, 0, 131084, 65525, 0, 65545, 65524, 3, 65545, 65525, 3, 131085, 65524, 0, 131085, 65525, 0, 65536, 65522, 3, 65537, 65522, 3, 65537, 65523, 3, 65538, 65523, 3, 65538, 65524, 3, 65537, 65524, 3, 65536, 65524, 3, 65536, 65523, 3, 65538, 65522, 3, 65524, 65522, 0, 65524, 65523, 0, 65523, 65523, 0, 65523, 65522, 0, 65522, 65522, 0, 65522, 65523, 0, 65522, 65524, 0, 65523, 65524, 0, 65524, 65524, 0, 65524, 65521, 0, 65523, 65521, 0, 65522, 65521, 0, 131070, 65520, 0, 196606, 65520, 0, 131069, 65520, 0, 196605, 65520, 0, 65521, 65521, 524288, 65521, 65522, 524288, 65521, 65523, 524288, 65521, 65524, 524288, -7, 65531, 524288, -6, 65531, 524288, -5, 65531, 524288, -5, 65532, 524288, -5, 65533, 524288, -6, 65533, 524288, -7, 65532, 524288, -7, 65533, 524288, -65543, 65532, 524288, -65542, 65532, 524288, -65543, 65531, 524288, -65542, 65531, 524288, -65541, 65531, 524288, -65541, 65532, 524288, -65541, 65533, 524288, -65542, 65533, 524288, -65543, 65533, 524288, 65529, 65531, 524288, 65530, 65531, 524288, 65531, 65531, 524288, 65531, 65532, 524288, 65531, 65533, 524288, 65530, 65533, 524288, 65529, 65533, 524288, 65529, 65532, 524288, 1, 65510, 0, 1, 65509, 0, 1, 65508, 0, 0, 65508, 0, 0, 65509, 0, 0, 65510, 0, 2, 65508, 0, 2, 65509, 0, 2, 65510, 0, 655362, 65509, 0, 655361, 65509, 0, 655360, 65509, 0, 655360, 65508, 0, 655361, 65508, 0, 655361, 65507, 0, 655362, 65507, 0, 655360, 65507, 0, 655362, 65508, 0, 655363, 65509, 0, 655363, 65508, 0, 655363, 65507, 0, 655363, 65506, 0, 655362, 65506, 0, 655361, 65506, 0, 655360, 65506, 0, 720895, 65506, 0, 720895, 65507, 0, 720895, 65508, 0, 720895, 65509, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 10, 0)
+
+[node name="FallZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FallZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -30)
+shape = SubResource("BoxShape3D_pp7ie")
+
+[node name="Coins" type="Node3D" parent="."]
+
+[node name="Coin1" parent="Coins" node_paths=PackedStringArray("hud") instance=ExtResource("7_xa8bc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.99835, 1, -8.97768)
+hud = NodePath("../../HUD")
+
+[node name="Coin2" parent="Coins" node_paths=PackedStringArray("hud") instance=ExtResource("7_xa8bc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.998354, 1, -8.97768)
+hud = NodePath("../../HUD")
+
+[node name="Coin3" parent="Coins" node_paths=PackedStringArray("hud") instance=ExtResource("7_xa8bc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00165, 1, -8.97768)
+hud = NodePath("../../HUD")
+
+[node name="Coin4" parent="Coins" node_paths=PackedStringArray("hud") instance=ExtResource("7_xa8bc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.00165, 1, -8.97768)
+hud = NodePath("../../HUD")
+
+[node name="Coin5" parent="Coins" node_paths=PackedStringArray("hud") instance=ExtResource("7_xa8bc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.00165, 1, -8.97768)
+hud = NodePath("../../HUD")
+
+[node name="Coin6" parent="Coins" node_paths=PackedStringArray("hud") instance=ExtResource("7_xa8bc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.00165, 1, -8.97768)
+hud = NodePath("../../HUD")
+
+[node name="Coin7" parent="Coins" node_paths=PackedStringArray("hud") instance=ExtResource("7_xa8bc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00165, 1, -8.97768)
+hud = NodePath("../../HUD")
+
+[node name="HUD" parent="." instance=ExtResource("8_6iflv")]
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Enemy1" parent="Enemies" instance=ExtResource("9_ifx3e")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 0.345498, -7.06001)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("9_ifx3e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.345498, -5.06001)
+direction = Vector3(0, 0, 1)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("9_ifx3e")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2.3455, -25.06)
+
+[node name="Moving Platforms" type="Node3D" parent="."]
+
+[node name="Platform3x2_1" parent="Moving Platforms" instance=ExtResource("10_5jj1f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1, -26)
+a = Vector3(-11, 1, -26)
+b = Vector3(-19, 1, -26)
+
+[node name="Platform3x2_2" parent="Moving Platforms" instance=ExtResource("10_5jj1f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -42)
+a = Vector3(3, 1, -42)
+b = Vector3(3, 11, -42)
+
+[node name="Platform3x2_3" parent="Moving Platforms" instance=ExtResource("10_5jj1f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 21, -48)
+a = Vector3(3, 21, -48)
+b = Vector3(3, 11, -48)
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+script = ExtResource("11_t635s")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+script = ExtResource("12_w0r8q")
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(574, 648)
+render_target_update_mode = 4
+
+[node name="Standard-Bot" parent="GridContainer/SubViewportContainer/SubViewport" instance=ExtResource("13_qo32u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00860882, 0, -0.00222659)
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(574, 648)
+render_target_update_mode = 4
+
+[node name="Fire-Bot" parent="GridContainer/SubViewportContainer2/SubViewport" instance=ExtResource("14_4b5tb")]
+player_id = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("13_xwsha")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(6.44135, 4.42067)
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="body_entered" from="FallZone" to="." method="_on_fall_zone_body_entered"]

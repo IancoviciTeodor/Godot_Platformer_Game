@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://poy0m2tbtmjq"]
+
+[ext_resource type="Script" path="res://Scripts/sound_manager.gd" id="1_n4cjt"]
+[ext_resource type="AudioStream" uid="uid://dk3yg75ch3dfk" path="res://Assets/SoundEffects/Coin Sound Effect 1.mp3" id="2_mfrsa"]
+[ext_resource type="AudioStream" uid="uid://d1mfuojql1em4" path="res://Assets/Music/Virtual Enemies - Capital City (Instrumental).mp3" id="3_0vbnq"]
+[ext_resource type="AudioStream" uid="uid://by60xtkdqjny3" path="res://Assets/SoundEffects/Fireball Sound Effect 1.mp3" id="4_xf2lh"]
+
+[node name="SoundManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n4cjt")
+
+[node name="SoundEnemy" type="AudioStreamPlayer" parent="."]
+
+[node name="SoundCoin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_mfrsa")
+
+[node name="MusicMenu" type="AudioStreamPlayer" parent="."]
+
+[node name="MusicLevel" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0vbnq")
+volume_db = -15.0
+
+[node name="SoundFireball" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xf2lh")
+volume_db = -10.0

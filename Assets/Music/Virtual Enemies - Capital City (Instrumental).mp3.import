@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d1mfuojql1em4"
+path="res://.godot/imported/Virtual Enemies - Capital City (Instrumental).mp3-dc4a60e4b9be1a23b7d7de5d3b566643.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Virtual Enemies - Capital City (Instrumental).mp3"
+dest_files=["res://.godot/imported/Virtual Enemies - Capital City (Instrumental).mp3-dc4a60e4b9be1a23b7d7de5d3b566643.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

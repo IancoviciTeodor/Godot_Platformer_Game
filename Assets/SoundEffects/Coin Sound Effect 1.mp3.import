@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dk3yg75ch3dfk"
+path="res://.godot/imported/Coin Sound Effect 1.mp3-ffc6bf4dfe76c85bc99845d049475e5b.mp3str"
+
+[deps]
+
+source_file="res://Assets/SoundEffects/Coin Sound Effect 1.mp3"
+dest_files=["res://.godot/imported/Coin Sound Effect 1.mp3-ffc6bf4dfe76c85bc99845d049475e5b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

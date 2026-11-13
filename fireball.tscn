@@ -1,0 +1,114 @@
+[gd_scene load_steps=20 format=3 uid="uid://dq8esybpqg117"]
+
+[ext_resource type="Shader" uid="uid://so62he3jpkdq" path="res://fireball_shader.tres" id="1_mj4yt"]
+[ext_resource type="Script" path="res://Scripts/fireball.gd" id="1_vh3i7"]
+[ext_resource type="ArrayMesh" uid="uid://c3r3fx4fdx7do" path="res://Assets/Models/fireball_mesh.obj" id="2_rieba"]
+[ext_resource type="Shader" uid="uid://ch36mymo81x2p" path="res://FireHeader_shader.tres" id="3_47i4x"]
+[ext_resource type="Shader" uid="uid://byhhfpigf60p4" path="res://Trail_shader.tres" id="4_5u6n4"]
+[ext_resource type="Texture2D" uid="uid://bb4iqeoco2u18" path="res://Assets/Textures/T_VFX_basic1.PNG" id="5_nb314"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2okt"]
+render_priority = 1
+shader = ExtResource("1_mj4yt")
+shader_parameter/Fire_Color = Color(2, 1.29804, 0.6, 1)
+shader_parameter/Speed = Vector2(0.1, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xo4ro"]
+render_priority = 0
+shader = ExtResource("3_47i4x")
+shader_parameter/Ball_Color = Color(1, 0.545098, 0.14902, 1)
+shader_parameter/Fresnel_Power = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_rjg31"]
+
+[sub_resource type="Gradient" id="Gradient_gdfm5"]
+offsets = PackedFloat32Array(0.0304054, 0.290541, 0.959459, 1)
+colors = PackedColorArray(0.960784, 0, 0, 0, 0.960784, 0, 0, 1, 1.29804, 1.49804, 0.0980392, 1, 1.29804, 1.49804, 0.0980392, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_elm3k"]
+gradient = SubResource("Gradient_gdfm5")
+use_hdr = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0rob"]
+render_priority = 0
+shader = ExtResource("4_5u6n4")
+shader_parameter/Trail_Speed = Vector2(2, 0)
+shader_parameter/Color_Texture = SubResource("GradientTexture1D_elm3k")
+
+[sub_resource type="QuadMesh" id="QuadMesh_nr51s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3d3mr"]
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("5_nb314")
+
+[sub_resource type="Curve" id="Curve_c4bgr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0ks77"]
+curve = SubResource("Curve_c4bgr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pxxpl"]
+particle_flag_align_y = true
+emission_shape = 2
+emission_sphere_radius = 0.5
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+initial_velocity_min = 3.0
+initial_velocity_max = 8.0
+radial_velocity_min = 0.999978
+radial_velocity_max = 1.99998
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_0ks77")
+color = Color(2, 1.29804, 0.498039, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ww83e"]
+size = Vector2(0.1, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ddp4t"]
+
+[node name="Fireball" type="Area3D"]
+collision_layer = 32
+collision_mask = 10
+script = ExtResource("1_vh3i7")
+
+[node name="FireballMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_o2okt")
+cast_shadow = 0
+mesh = ExtResource("2_rieba")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_xo4ro")
+mesh = SubResource("SphereMesh_rjg31")
+
+[node name="TrailMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.4093, 0, 0, 0, 0.613669, 0, 0, 0, 1, -0.796852, 0, 0)
+material_override = SubResource("ShaderMaterial_g0rob")
+mesh = SubResource("QuadMesh_nr51s")
+
+[node name="SmallSparks" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_3d3mr")
+amount = 10
+lifetime = 0.3
+explosiveness = 0.4
+process_material = SubResource("ParticleProcessMaterial_pxxpl")
+draw_pass_1 = SubResource("QuadMesh_ww83e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.87, 0, 0, 0, 0.87, 0, 0, 0, 0.87, 0, 0, 0)
+shape = SubResource("SphereShape3D_ddp4t")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+collision_mask = 10
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

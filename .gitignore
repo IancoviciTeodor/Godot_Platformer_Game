@@ -1,0 +1,4 @@
+# Redot 4+ specific ignores
+.godot/
+/android/
+export_presets.cfg
